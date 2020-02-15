@@ -12,8 +12,8 @@ pipeline {
     	        sh '''
                 docker rm $(docker ps -a -q)
                 docker rmi $(docker images -a -q | grep -v "ubuntu") &> /dev/null
-        	    docker build -t testimage .
-        	    '''
+                docker build -t testimage .
+                '''
     	    }
     	    
    	    }
