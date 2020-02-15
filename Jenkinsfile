@@ -10,6 +10,7 @@ pipeline {
     	stage('Docker build') {
     	    steps {
     	        sh '''
+                docker stop testcontainer
         	    docker rm testcontainer
         	    docker rmi testimage
         	    docker build -t testimage .
