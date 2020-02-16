@@ -10,8 +10,8 @@ pipeline {
     	stage('Docker build') {
     	    steps {
                 sh ''' 
-    	        [ ! -z $(docker ps -q -f name=testcontainer) ] || (docker stop testcontainer &> /dev/null && docker rm $(docker ps -q -f name=testcontainer) &> /dev/null)
-                [ ! -z $(docker images -q testimage) ] || (docker rmi $(docker images -a -q | grep -v "ubuntu") &> /dev/null && docker build -t testimage .)
+    	        [ ! -z $(docker ps -q -f name=testcontainer) ] || ((docker stop testcontainer &> /dev/null) && (docker rm $(docker ps -q -f name=testcontainer) &> /dev/null))
+                [ ! -z $(docker images -q testimage) ] || ((docker rmi $(docker images -a -q | grep -v "ubuntu") &> /dev/null) && (docker build -t testimage .))
                 '''
              }
     	    
@@ -25,7 +25,7 @@ pipeline {
     	stage('Docker Start') {
     	    steps {
     	        sh '''
-    	        docker start -d --name testcontainer -p 9000:8080 testimage
+    	        docker run -d --name testcontainer -p 9000:8080 testimage
     	        '''
     	    }
     	}
