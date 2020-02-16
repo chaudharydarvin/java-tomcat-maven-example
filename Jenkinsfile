@@ -24,7 +24,7 @@ pipeline {
     	    }
         
     	}
-    	stage('Docker build and start') {
+    	stage('Docker Start') {
     	    steps {
     	        sh '''
     	        docker run -d --name testcontainer -p 9000:8080 testimage
