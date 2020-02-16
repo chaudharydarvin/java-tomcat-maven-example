@@ -12,7 +12,7 @@ pipeline {
                 sh ''' 
     	        docker stop testcontainer &> /dev/null
                 docker rm $(docker ps -a -q) &> /dev/null
-                docker rmi $(docker images -a -q | grep -v "ubuntu") &> /dev/null
+                [ ! -z $(docker images -q testimage) ] || docker rmi $(docker images -a -q | grep -v "ubuntu")
                 docker build -t testimage .
                 '''
              }
