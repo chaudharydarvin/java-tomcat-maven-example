@@ -10,9 +10,9 @@ pipeline {
     	stage('Docker build') {
     	    steps {
                 sh ''' 
-    	        docker stop testcontainer 2> /dev/null
-                docker rm $(docker ps -a -q) 2> /dev/null
-                docker rmi $(docker images -a -q | grep -v "ubuntu") 2> /dev/null
+    	        docker stop testcontainer &> /dev/null
+                docker rm $(docker ps -a -q) &> /dev/null
+                docker rmi $(docker images -a -q | grep -v "ubuntu") &> /dev/null
                 docker build -t testimage .
                 '''
              }
