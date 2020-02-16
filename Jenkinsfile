@@ -10,19 +10,15 @@ pipeline {
     	stage('Docker build') {
     	    steps {
                 try { 
-    	        sh '''
-                docker stop testcontainer
+    	        docker stop testcontainer
                 docker rm $(docker ps -a -q)
                 docker rmi $(docker images -a -q | grep -v "ubuntu")
-                '''
                 } catch(Exception error) {
                 echo "ERROR DETECTED"
                 error.getMessage()
                 }
-                ssh '''
                 docker build -t testimage .
-                '''
-    	    }
+             }
     	    
    	    }
     	stage('Smoke testing and result') {
