@@ -11,9 +11,11 @@ pipeline {
     	    steps {
                 sh ''' 
     	        docker stop testcontainer &> /dev/null
+                sleep 10s
                 docker rm $(docker ps -q -a) &> /dev/null
+                sleep 10s
                 docker rmi $(docker images -a -q | grep -v "ubuntu") &> /dev/null
-                sleep 30s
+                sleep 10s
                 docker build -t testimage .
                 '''
              }
@@ -28,8 +30,7 @@ pipeline {
     	stage('Docker Start') {
     	    steps {
     	        sh '''
-                sleep 30s
-    	        docker run -d --name testcontainer -p 9000:8080 testimage
+                docker run -d --name testcontainer -p 9000:8080 testimage
     	        '''
     	    }
     	}
