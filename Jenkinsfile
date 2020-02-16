@@ -15,7 +15,6 @@ pipeline {
                 docker rm $(docker ps -q -a) &> /dev/null
                 sleep 10s
                 docker rmi $(docker images -a -q | grep -v "ubuntu") &> /dev/null
-                sleep 10s
                 docker build -t testimage .
                 '''
              }
