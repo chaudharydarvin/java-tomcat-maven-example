@@ -11,7 +11,7 @@ pipeline {
     	    steps {
                 sh ''' 
     	        docker stop testcontainer &> /dev/null
-                docker ps -q -f name=testcontainer &> /dev/null
+                docker rm $(docker ps -q -a) &> /dev/null
                 docker rmi $(docker images -a -q | grep -v "ubuntu") &> /dev/null
                 docker build -t testimage .
                 '''
