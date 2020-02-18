@@ -17,8 +17,7 @@ RUN gzip -V
 RUN tar -xvzf apache-tomcat-8.5.51.tar.gz -C /opt/tomcat --strip-components=1
 RUN cd /opt/tomcat
 RUN chgrp -R tomcat /opt/tomcat
-RUN cat /opt/tomcat/index.html < echo "I am index.html file"
-RUN cat /opt/tomcat/webapp/index.html < echo "I am index.html file in webapp"
+ADD index.html /opt/tomcat/webapps
 ADD target/java-tomcat-maven-example.war /opt/tomcat/webapps
 #RUN chown -R tomcat conf/ webapps/ work/ temp/ logs/
 #RUN update-java-alternatives -l
